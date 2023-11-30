@@ -101,61 +101,46 @@ const PRODUCTS = [
 const sectionFilters = document.querySelector("#filters");
 const sectionProducts = document.querySelector("#products");
 
-// Declaro la variable SELLER para filtrar los productos por vendedor
-let SELLER = "";
-let PRICE = 0;
 
-// Función que filtra los artículos por vendedor
+// Función que filtra los artículos
 const filter = (option) => {
 
     // Creo un array donde pondré los productos que contengan ese vendedor
     const productsFiltered = [];
 
-    switch (option) {
-        case "seller": 
-            // Recorro el array de productos
-            for (const product of PRODUCTS) {
+    // Creo las variables que recogen el contenido 
+    let selectedSellerValue = document.querySelector("#vendedores").value;
+    let priceValue = document.querySelector("#price").value;
+
+    // console.log(selectedSellerValue);
+    // (priceValue === "") ? console.log("vacio"): console.log(priceValue);
+
+    if(priceValue === ""){
+        // Filtro únicamente por vendedor
+        // Recorro el array de productos
+        for (const product of PRODUCTS) {
                 
-                // Compruebo si el producto incluye al vendedor
-                if(product.sellers.includes(SELLER)){
-                    productsFiltered.push(product);
-                }
-                // Pinto los artículos que hayan cumplido la condición.
-                printArticles(productsFiltered);
-
+            // Compruebo si el producto incluye al vendedor
+            if(product.sellers.includes(selectedSellerValue)){
+                productsFiltered.push(product);
             }
-            break;
-        case "price":
-            // Recorro el array de productos
-            for (const product of PRODUCTS) {
-                
-                // Compruebo si el producto tiene precio menor al indicado en el input
-                if(product.price <= PRICE){
-                    productsFiltered.push(product);
-                }
-                // Pinto los artículos que hayan cumplido la condición.
-                printArticles(productsFiltered);
+            // Pinto los artículos que hayan cumplido la condición.
+            printArticles(productsFiltered);
 
+        }
+    }else{
+        // Recorro el array de productos
+        for(const product of PRODUCTS){
+            // Compruebo si el producto incluye al vendedor y el precio es menor al indicado en el input
+            if(product.sellers.includes(selectedSellerValue) && product.price <= priceValue){
+                console.log("He entrado en la condición de doble filtro");
+                productsFiltered.push(product);
             }
-        break;
 
-        default: // Ejecución por defecto. Buscaré teniendo en cuenta la combinación de los dos filtros
-            // Recorro el array de productos
-            for(const product of PRODUCTS){
-                // Compruebo si el producto incluye al vendedor y el precio es menor al indicado en el input
-                if(product.sellers.includes(SELLER) && product.price <= PRICE){
-                    console.log("He entrado en la condición de doble filtro");
-                    productsFiltered.push(product);
-                }
-
-                // Pinto los artículos que hayan cumplido la condición.
-                printArticles(productsFiltered);
-            }
-            console.log("Dentro del default");
-            break;
-    }
-
-    
+            // Pinto los artículos que hayan cumplido la condición.
+            printArticles(productsFiltered);
+        }
+    }  
 
 }
 
