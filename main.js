@@ -129,7 +129,7 @@ const filter = (option) => {
             // Recorro el array de productos
             for (const product of PRODUCTS) {
                 
-                // Compruebo si el producto incluye al vendedor
+                // Compruebo si el producto tiene precio menor al indicado en el input
                 if(product.price <= PRICE){
                     productsFiltered.push(product);
                 }
@@ -139,7 +139,19 @@ const filter = (option) => {
             }
         break;
 
-        default:
+        default: // Ejecución por defecto. Buscaré teniendo en cuenta la combinación de los dos filtros
+            // Recorro el array de productos
+            for(const product of PRODUCTS){
+                // Compruebo si el producto incluye al vendedor y el precio es menor al indicado en el input
+                if(product.sellers.includes(SELLER) && product.price <= PRICE){
+                    console.log("He entrado en la condición de doble filtro");
+                    productsFiltered.push(product);
+                }
+
+                // Pinto los artículos que hayan cumplido la condición.
+                printArticles(productsFiltered);
+            }
+            console.log("Dentro del default");
             break;
     }
 
@@ -156,6 +168,7 @@ const createSelect = (sellers) => {
 
     // Creo elemento HTML - select
     let selectSellers = document.createElement("select");
+    selectSellers.setAttribute("id", "vendedores");
     selectSellers.className = "filterSize";
 
     for (const seller of sellers) {
@@ -235,16 +248,16 @@ const createCleanImput = () => {
 
 
 // Función para crear el lemento H1 del listado de productos
-const createTitle = () => {
+// const createTitle = () => {
 
-    // Creo el elmento H1
-    const productsTitle = document.createElement("h1");
-    productsTitle.textContent = "Riders MTB";
+//     Creo el elmento H1
+//     const productsTitle = document.createElement("h1");
+//     productsTitle.textContent = "Riders MTB";
 
-    // Añado el título al DOM
-    sectionProducts.appendChild(productsTitle);
+//     Añado el título al DOM
+//     body.appendChild(productsTitle);
     
-}
+// }
 
 // Función para crear la capa contenedora de productos
 const createProductsDiv = () => {
@@ -309,7 +322,7 @@ createImput();
 createCleanImput();
 
 // Pinto el elemento HTML - h1 en la capa products
-createTitle();
+// createTitle();
 
 // Pinto el elemento HTML - div contenedor de productos en la capa sectionProducts
 createProductsDiv();
