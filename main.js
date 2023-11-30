@@ -181,13 +181,13 @@ const createSelect = (sellers) => {
     sectionFilters.appendChild(inputLabel);
     sectionFilters.appendChild(selectSellers);
 
-    selectSellers.addEventListener("change", (event) => {
-        // Asigno el valor "vendedor" a la variable SELECT
-        SELLER = event.target.value;
+    // selectSellers.addEventListener("change", (event) => {
+    //     // Asigno el valor "vendedor" a la variable SELECT
+    //     SELLER = event.target.value;
 
-        // Llamo a la función de filtrar
-        filter("seller");
-    });
+    //     // Llamo a la función de filtrar
+    //     filter("seller");
+    // });
 }
 
 // Función que crea el elemento HTML - input
@@ -199,6 +199,7 @@ const createImput = () => {
     // Input
     const input = document.createElement("input");
     input.placeholder = "Introduce un precio";
+    input.setAttribute("id", "price");
     input.className = "filterSize";
     
     // Botón
@@ -217,7 +218,7 @@ const createImput = () => {
         // Asigno el valor "vendedor" a la variable SELECT
         PRICE = document.querySelector("input").value;
         // Llamo a la función de filtrar
-        filter("price");
+        filter();
 
     });
 
