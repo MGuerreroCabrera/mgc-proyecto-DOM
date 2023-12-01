@@ -152,6 +152,14 @@ const createSelect = (sellers) => {
     let selectSellers = document.createElement("select");
     selectSellers.setAttribute("id", "vendedores");
     selectSellers.className = "filterSize";
+    
+    // Creo el primer elemento option para los sellers
+    const firstOption = document.createElement("option");
+    firstOption.setAttribute("value", "- Todos -");
+    firstOption.textContent = "- Todos -";
+
+    // Inyecto el primer elemento
+    selectSellers.appendChild(firstOption);
 
     for (const seller of sellers) {
         const option = document.createElement("option");
@@ -221,6 +229,14 @@ const createCleanImput = () => {
         for (const option of options) {
             option.remove();
         }
+
+        // Creo el primer elemento option para los sellers
+        const firstOption = document.createElement("option");
+        firstOption.setAttribute("value", "- Todos -");
+        firstOption.textContent = "- Todos -";
+
+        // Inyecto el primer elemento
+        selectSellers.appendChild(firstOption);
 
         // Pinto de nuevo todos los vendedores en el select
         for (const seller of SELLERS) {
