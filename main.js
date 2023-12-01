@@ -103,7 +103,7 @@ const sectionProducts = document.querySelector("#products");
 
 
 // Función que filtra los artículos
-const filter = (option) => {
+const filter = () => {
 
     // Creo un array donde pondré los productos que contengan ese vendedor
     const productsFiltered = [];
@@ -111,9 +111,6 @@ const filter = (option) => {
     // Creo las variables que recogen el contenido 
     let selectedSellerValue = document.querySelector("#vendedores").value;
     let priceValue = document.querySelector("#price").value;
-
-    // console.log(selectedSellerValue);
-    // (priceValue === "") ? console.log("vacio"): console.log(priceValue);
 
     if(priceValue === ""){
         // Filtro únicamente por vendedor
@@ -198,13 +195,9 @@ const createImput = () => {
     sectionFilters.appendChild(button);
 
     // Añado escuchador de eventos al botón
-    button.addEventListener("click", (event) => {
-
-        // Asigno el valor "vendedor" a la variable SELECT
-        PRICE = document.querySelector("input").value;
+    button.addEventListener("click", () => {
         // Llamo a la función de filtrar
         filter();
-
     });
 
 }
@@ -227,6 +220,25 @@ const createCleanImput = () => {
         
         // Pongo a 0 el valor del imput
         document.querySelector("input").value = "";
+        
+        // Recojo los options del select de vendedores
+        const selectSellers = document.querySelector("#vendedores");
+        const options = document.querySelectorAll("#vendedores option");
+
+        // Elimino los options del select
+        for (const option of options) {
+            option.remove();
+        }
+
+        // Pinto de nuevo todos los vendedores en el select
+        for (const seller of SELLERS) {
+            const option = document.createElement("option");
+            option.setAttribute("value", seller);
+            option.textContent = seller;
+            selectSellers.appendChild(option);
+        }
+
+
     }
     );
 
