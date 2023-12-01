@@ -162,14 +162,6 @@ const createSelect = (sellers) => {
     
     sectionFilters.appendChild(inputLabel);
     sectionFilters.appendChild(selectSellers);
-
-    // selectSellers.addEventListener("change", (event) => {
-    //     // Asigno el valor "vendedor" a la variable SELECT
-    //     SELLER = event.target.value;
-
-    //     // Llamo a la función de filtrar
-    //     filter("seller");
-    // });
 }
 
 // Función que crea el elemento HTML - input
@@ -237,25 +229,10 @@ const createCleanImput = () => {
             option.textContent = seller;
             selectSellers.appendChild(option);
         }
-
-
     }
     );
 
 }
-
-
-// Función para crear el lemento H1 del listado de productos
-// const createTitle = () => {
-
-//     Creo el elmento H1
-//     const productsTitle = document.createElement("h1");
-//     productsTitle.textContent = "Riders MTB";
-
-//     Añado el título al DOM
-//     body.appendChild(productsTitle);
-    
-// }
 
 // Función para crear la capa contenedora de productos
 const createProductsDiv = () => {
@@ -310,6 +287,22 @@ const printArticles = (articles) => {
     }
 }
 
+const printFooter = () => {
+
+    // creo el elemento HTML - footer
+    const footer = document.createElement("footer");
+    // Creo el elemento HTML - p que irá en el footer
+    const p = document.createElement("p");
+    p.textContent = "Made width 🤍 from Mallorca";
+
+    // Añado el elemento p en el footer
+    footer.appendChild(p);
+    
+    // Añado el footer al body
+    document.body.appendChild(footer);
+    
+}
+
 // Pinto el elemento HTML - select en la capa filters
 createSelect(SELLERS);
 
@@ -327,6 +320,9 @@ createProductsDiv();
 
 // Pinto los artículos en el contenedor
 printArticles(PRODUCTS);
+
+// Pinto el footer
+printFooter();
 
 
 
