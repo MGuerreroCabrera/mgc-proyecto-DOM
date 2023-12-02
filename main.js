@@ -1,7 +1,7 @@
 // import './style.css';
 
 // Declaro el array de vendedores
-const SELLERS = ["John Travolta", "Julia Roberts", "Kim Kardasian", "Donal Trump", "Carles Puigdemont", "Joan Manuel Serrat"];
+const SELLERS = ["John Travolta", "Julia Roberts", "Kim Kardasian", "Donal Trump", "Carles Puigdemont", "Joan Manuel Serrat", "Pepa Pig", "Pocoyo", "Bob esponja"];
 
 // Declaro el array de objetos que contendrá los diferentes productos
 const PRODUCTS = [
@@ -101,6 +101,24 @@ const PRODUCTS = [
 const sectionFilters = document.querySelector("#filters");
 const sectionProducts = document.querySelector("#products");
 
+const showVoidMessage = () => {
+
+    // Creo el elemento HTML - div que contendrá el mensaje
+    const divMessageContainer = document.createElement("div");
+    // Le añado la clase divMessageContainer
+    divMessageContainer.className = "divMessageContainer";
+
+    // Creo el elemento HTML - p con el mensaje
+    const message = document.createElement("p");
+    message.textContent = "No se han encontrado elementos para los criterios de búsqueda seleccionados";
+
+    // Inyecto el mensaje en el contenedor
+    divMessageContainer.appendChild(message);
+
+    // Inyecto el contenedor con el mensaje en la sección de elementos
+    sectionProducts.appendChild(divMessageContainer);
+
+}
 
 // Función que filtra los artículos
 const filter = () => {
@@ -118,28 +136,47 @@ const filter = () => {
         for (const product of PRODUCTS) {
                 
             // Compruebo si el producto incluye al vendedor
-            if(product.sellers.includes(selectedSellerValue)){
+            if(product.sellers.includes(selectedSellerValue)){                
                 productsFiltered.push(product);
             }
+        }
+        // Compruebo que haya elementos en el array
+        if(productsFiltered.length > 0) {
             // Pinto los artículos que hayan cumplido la condición.
             printArticles(productsFiltered);
-
+        }else{                
+            sectionProducts.innerHTML = '';
+            showVoidMessage();
         }
     }else{
-        // Recorro el array de productos
-        for(const product of PRODUCTS){
-            // Compruebo si el producto incluye al vendedor y el precio es menor al indicado en el input
-            if(product.sellers.includes(selectedSellerValue) && product.price <= priceValue){
-                console.log("He entrado en la condición de doble filtro");
-                productsFiltered.push(product);
+        // Compruebo si se ha seleccionado vendedor
+        if(selectedSellerValue != "0"){
+            // Recorro el array de productos 
+            for (const product of PRODUCTS) {
+               // Comprobar artículos que cumplan la condición del precio y el vendedor
+                if(product.price <= priceValue && product.sellers.includes(selectedSellerValue)){
+                    productsFiltered.push(product);
+                }
             }
-
-            // Pinto los artículos que hayan cumplido la condición.
-            printArticles(productsFiltered);
+        }else{
+            // Recorro el array de productos 
+            for (const product of PRODUCTS) {
+                // Comprobar artículos que cumplan la condición del precio
+                 if(product.price <= priceValue){
+                     productsFiltered.push(product);
+                 }
+             }
         }
-    }  
-
-}
+    }
+    // Compruebo que haya elementos en el array
+    if(productsFiltered.length > 0) {
+        // Pinto los artículos que hayan cumplido la condición.
+        printArticles(productsFiltered);
+    }else{                
+        sectionProducts.innerHTML = '';
+        showVoidMessage();
+    }
+}  
 
 // Función que crea el elemento HTML - select
 const createSelect = (sellers) => {
@@ -155,7 +192,7 @@ const createSelect = (sellers) => {
     
     // Creo el primer elemento option para los sellers
     const firstOption = document.createElement("option");
-    firstOption.setAttribute("value", "- Todos -");
+    firstOption.setAttribute("value", "0");
     firstOption.textContent = "- Todos -";
 
     // Inyecto el primer elemento
@@ -196,6 +233,16 @@ const createImput = () => {
 
     // Añado escuchador de eventos al botón
     button.addEventListener("click", () => {
+
+        // Elimino el contenido de la sección products
+        sectionProducts.innerHTML = '';
+
+        // Creo el products container
+        createProductsDiv();
+
+        // Pintar los artículos
+        printArticles(PRODUCTS);
+
         // Llamo a la función de filtrar
         filter();
     });
@@ -215,6 +262,12 @@ const createCleanImput = () => {
 
     button.addEventListener("click", () => {
 
+        // Elimino el contenido de la sección products
+        sectionProducts.innerHTML = '';
+
+        // Creo el products container
+        createProductsDiv();
+
         // Pinto los artículos sin filtrar
         printArticles(PRODUCTS)
         
@@ -232,7 +285,7 @@ const createCleanImput = () => {
 
         // Creo el primer elemento option para los sellers
         const firstOption = document.createElement("option");
-        firstOption.setAttribute("value", "- Todos -");
+        firstOption.setAttribute("value", "0");
         firstOption.textContent = "- Todos -";
 
         // Inyecto el primer elemento

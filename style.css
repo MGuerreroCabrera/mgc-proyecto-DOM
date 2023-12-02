@@ -128,6 +128,7 @@ button {
 
 .productsContainer {
   width: 100%;
+  min-height: 75svh;
   flex-direction: row;
   border: 1px solid var(--pd-color-more-orange);
   border-radius: var(--pd-border-radius-m);
@@ -158,6 +159,16 @@ button {
 
 .imgProduct {
   width: 150px;
+}
+
+.divMessageContainer {
+  width: 70%;
+  height: 75svh;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
 }
 
 footer {
